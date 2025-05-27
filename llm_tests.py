@@ -1,8 +1,6 @@
 import os
-from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
-# Import our custom utility modules
 import excel_utils
 import gemini_utils
 import config
@@ -47,10 +45,12 @@ def run_llm_analysis_tests():
         Please analyze and compare the household ledger data from two consecutive months:
 
         **{this_month_display} Ledger Summary:**
-        {current_month_summary}
-
+        {current_month_df}
+        Total income and expense: {current_month_summary}
+    
         **{last_month_display} Ledger Summary:**
-        {last_month_summary}
+        {last_month_df}
+        "Total income and expense: {last_month_summary}
 
         Provide a concise comparison of:
         - Overall spending trends.
@@ -72,10 +72,10 @@ def run_llm_analysis_tests():
 
     # Prompt 2: Detailed Expense Breakdown for Current Month
     prompt_current_expenses = f"""
-    Here is the household ledger data for {this_month_display}:
-    {current_month_summary}
+    Here is the household ledger data for this month: {current_month_df}:
 
     Based on this data, please:
+    - Sum up the totals in the main categories: Groceries, Restaruants, Transportations, Social Life, Rent, Utilities from the full data provided
     - List the top 3-5 highest expense categories and their approximate amounts.
     - Provide a brief summary of overall spending habits for this month.
     """
