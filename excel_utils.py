@@ -47,7 +47,6 @@ def preprocess_ledger_dataframe(dataframe):
     if not df_cleaned.empty and len(df_cleaned.columns) > 0:
         last_column_name = df_cleaned.columns[-1] # Get the name of the last column
         df_cleaned = df_cleaned.drop(columns=last_column_name, errors='ignore')
-        print(f"Removed the last column '{last_column_name}'.")
     else:
         print("Warning: Cannot determine last column to drop (DataFrame is empty or has no columns).")
 
@@ -64,9 +63,6 @@ def preprocess_ledger_dataframe(dataframe):
     # Ensure 'Period' is datetime (if it's a date column)
     if 'Period' in df_cleaned.columns:
         df_cleaned['Period'] = pd.to_datetime(df_cleaned['Period'], errors='coerce')
-
-    print("DataFrame preprocessed: columns dropped and renamed.")
-    print("Remaining columns after preprocessing:", df_cleaned.columns.tolist())
     return df_cleaned
 
 def get_basic_df_summary(dataframe, num_rows=5):
@@ -101,10 +97,7 @@ def get_basic_df_summary(dataframe, num_rows=5):
     
     return summary_str
 
-# --- Test functionality when excel_utils.py is run directly ---
-if __name__ == "__main__":
-    print("--- Testing excel_utils.py functions (Excel only) ---")
-
+def get_last_month_this_month_info():
     today = datetime.now()
     current_year = today.year
     ledger_base_folder = os.path.join(os.getcwd(), str(current_year))
@@ -120,6 +113,13 @@ if __name__ == "__main__":
     last_month_filename = f"{last_month_name}_{last_month_year}.xlsx"
     last_month_full_path = os.path.join(ledger_base_folder, last_month_filename)
     last_month_display = last_month_date.strftime('%B %Y')
+    return this_month_full_path, this_month_display, last_month_full_path, last_month_display
+
+
+# --- Test functionality when excel_utils.py is run directly ---
+if __name__ == "__main__":
+    print("--- Testing excel_utils.py functions (Excel only) ---")
+    this_month_full_path, this_month_display, last_month_full_path, last_month_display = get_last_month_this_month_info()
 
     print(f"\nTargeting this month's file: '{this_month_full_path}'")
     print(f"Targeting last month's file: '{last_month_full_path}'")
