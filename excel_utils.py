@@ -65,27 +65,27 @@ def preprocess_ledger_dataframe(dataframe):
         df_cleaned['Period'] = pd.to_datetime(df_cleaned['Period'], errors='coerce')
     return df_cleaned
 
-def get_basic_df_summary(dataframe, num_rows=5):
+def get_basic_df_summary(dataframe):
     """
     Generates a basic string summary of a DataFrame's head for LLM input.
     This function first preprocesses the DataFrame.
 
     Args:
         dataframe (pd.DataFrame): The DataFrame to summarize (raw or preprocessed).
-        num_rows (int): The number of head rows to include in the summary.
-
     Returns:
         str: A formatted string representing the DataFrame's head, or "No data available."
     """
+
+    #TODO: To be expanded
+    summary_str = ""
+
     # First, preprocess the data
     processed_df = preprocess_ledger_dataframe(dataframe)
 
     if processed_df.empty:
         return "No data available in this ledger after preprocessing."
-    
-    summary_str = processed_df.head(num_rows).to_string(index=False)
 
-    # Processign total income and total expense
+    # Processing total income and total expense
     income_df = processed_df[processed_df['Income/Expense'].isin(['Income'])]
     total_income = income_df['Amount'].sum()
 

@@ -39,7 +39,7 @@ def send_email(receiver_email, subject, body):
     msg['From'] = sender_email
     msg['To'] = receiver_email
     msg['Subject'] = subject
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, 'html', 'utf-8'))
 
     try:
         server = smtplib.SMTP_SSL(smtp_server, smtp_port) # Use SMTP_SSL for port 465 (Gmail default)
