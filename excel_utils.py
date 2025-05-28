@@ -19,7 +19,6 @@ def load_excel_file(file_full_path):
     
     try:
         df = pd.read_excel(file_full_path)
-        print(f"Successfully loaded '{file_full_path}'")
         return df
     except Exception as e:
         print(f"Error reading Excel file '{file_full_path}': {e}")
