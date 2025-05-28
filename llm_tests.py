@@ -29,7 +29,7 @@ def run_llm_analysis_tests():
     last_month_df = excel_utils.load_excel_file(last_month_full_path)
 
     if current_month_df.empty or last_month_df.empty:
-        print("ERROR: Could not load both current and last month's ledger files. Please ensure they exist.")
+        print("ERROR: Could not load both current and last month's budget planner files. Please ensure they exist.")
         print(f"Current Month File Expected: {this_month_full_path}")
         print(f"Last Month File Expected: {last_month_full_path}")
         return
@@ -42,13 +42,13 @@ def run_llm_analysis_tests():
     # Prompt 1: Month-over-Month Comparison
 
     prompt_comparison = f"""
-        Please analyze and compare the household ledger data from two consecutive months:
+        Please analyze and compare the household budget planner data from two consecutive months:
 
-        **{this_month_display} Ledger Summary:**
+        **{this_month_display} Budget Planner Summary:**
         {current_month_df}
         Total income and expense: {current_month_summary}
     
-        **{last_month_display} Ledger Summary:**
+        **{last_month_display} Budget Planner Summary:**
         {last_month_df}
         "Total income and expense: {last_month_summary}
 
@@ -72,7 +72,7 @@ def run_llm_analysis_tests():
 
     # Prompt 2: Detailed Expense Breakdown for Current Month
     prompt_current_expenses = f"""
-    Here is the household ledger data for this month: {current_month_df}:
+    Here is the household budget planner data for this month: {current_month_df}:
 
     Based on this data, please:
     - Sum up the totals in the main categories: Groceries, Restaruants, Transportations, Social Life, Rent, Utilities from the full data provided

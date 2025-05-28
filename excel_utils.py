@@ -25,9 +25,9 @@ def load_excel_file(file_full_path):
         return pd.DataFrame()
 
 
-def preprocess_ledger_dataframe(dataframe):
+def preprocess_budget_dataframe(dataframe):
     """
-    Cleans and preprocesses the raw ledger DataFrame based on specified columns.
+    Cleans and preprocesses the raw budget DataFrame based on specified columns.
     This includes dropping unnecessary columns and renaming others.
 
     Args:
@@ -79,10 +79,10 @@ def get_basic_df_summary(dataframe):
     summary_str = ""
 
     # First, preprocess the data
-    processed_df = preprocess_ledger_dataframe(dataframe)
+    processed_df = preprocess_budget_dataframe(dataframe)
 
     if processed_df.empty:
-        return "No data available in this ledger after preprocessing."
+        return "No data available."
 
     # Processing total income and total expense
     income_df = processed_df[processed_df['Income/Expense'].isin(['Income'])]
@@ -99,18 +99,18 @@ def get_basic_df_summary(dataframe):
 def get_last_month_this_month_info():
     today = datetime.now()
     current_year = today.year
-    ledger_base_folder = os.path.join(os.getcwd(), str(current_year))
+    budget_base_folder = os.path.join(os.getcwd(), str(current_year))
 
     this_month_name = today.strftime('%B').capitalize()
     this_month_filename = f"{this_month_name}_{current_year}.xlsx"
-    this_month_full_path = os.path.join(ledger_base_folder, this_month_filename)
+    this_month_full_path = os.path.join(budget_base_folder, this_month_filename)
     this_month_display = today.strftime('%B %Y')
 
     last_month_date = today.replace(day=1) - timedelta(days=1)
     last_month_name = last_month_date.strftime('%B').capitalize()
     last_month_year = last_month_date.year
     last_month_filename = f"{last_month_name}_{last_month_year}.xlsx"
-    last_month_full_path = os.path.join(ledger_base_folder, last_month_filename)
+    last_month_full_path = os.path.join(budget_base_folder, last_month_filename)
     last_month_display = last_month_date.strftime('%B %Y')
     return this_month_full_path, this_month_display, last_month_full_path, last_month_display
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     print(f"Targeting last month's file: '{last_month_full_path}'")
 
     # --- Test 1: Loading current and last month's files ---
-    print("\n--- Test 1: Loading monthly ledger files ---")
+    print("\n--- Test 1: Loading monthly budget planner files ---")
     
     raw_df_this_month = load_excel_file(this_month_full_path)
     raw_df_last_month = load_excel_file(last_month_full_path)
@@ -146,7 +146,6 @@ if __name__ == "__main__":
     
     if not raw_df_this_month.empty:
         print(f"\n--- Preprocessing and Summarizing {this_month_display} ---")
-        # Call get_basic_df_summary, which internally calls preprocess_ledger_dataframe
         summary_this = get_basic_df_summary(raw_df_this_month) 
         print("\nSummary for LLM (first 5 rows of processed data):")
         print(summary_this)
@@ -155,7 +154,6 @@ if __name__ == "__main__":
 
     if not raw_df_last_month.empty:
         print(f"\n--- Preprocessing and Summarizing {last_month_display} ---")
-        # Call get_basic_df_summary, which internally calls preprocess_ledger_dataframe
         summary_last = get_basic_df_summary(raw_df_last_month) 
         print("\nSummary for LLM (first 5 rows of processed data):")
         print(summary_last)

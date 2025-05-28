@@ -1,14 +1,14 @@
 Please perform a detailed financial analysis based on the provided household money manager data. First, analyze this month's data independently, then provide a comparison between this month and last month.
 
-This Month's Money manager Data: {df_this_month}
+This Month's budget planner Data: {df_this_month}
 This Month's Summary: {current_month_summary}
 
-Last Month's money manager Data: {df_last_month}
+Last Month's budget planner Data: {df_last_month}
 Last Month's Summary: {last_month_summary}
 
 ### Part 1: {this_month_display} Analysis
 
-Based on the **{this_month_display} Ledger Summary** provided:
+Based on the **{this_month_display} budget planner Summary** provided:
 -   Summarize the overall spending pattern and major income sources for this month.
 -   Identify and list the top 3-5 highest expense categories (e.g., Groceries, Restaurants, Utilities) along with their approximate amounts.
 -   Note any unusually large or one-time transactions.

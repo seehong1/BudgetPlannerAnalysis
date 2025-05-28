@@ -1,6 +1,5 @@
 import os
 import markdown
-from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 import config
@@ -9,7 +8,7 @@ import gemini_utils
 import email_utils
 
 def run_money_manager_analysis():
-    print("--- Starting Money Manager Analysis Script ---")
+    print("--- Starting Budget Planner Analysis Script ---")
 
     # --- 1. Configuration and API Key Setup ---
     load_dotenv() # Load .env file for the main script's execution
@@ -47,10 +46,10 @@ def run_money_manager_analysis():
     prompt_filepath = ""
 
     if config.LANGUAGE == "Korean" or config.LANGUAGE == "한국어":
-        greeting = "<p>안녕하세요 홍선님, <br>이번 달 가계부 정리 내용을 토대로 분석한 결과입니다.<br></p>" 
+        greeting = "<p>안녕하세요 홍선님, <br><br>이번 달 가계부 정리 내용을 토대로 분석한 결과입니다.<br></p>" 
         prompt_filepath = "prompts/prompt_kr.txt"
     elif config.LANGUAGE == "English":
-        greeting = "<p>Hi Sean, here is your money manager analysis for this month.<br></p>"
+        greeting = "<p>Hi Sean, <br><br>Here is your budget analysis for this month.<br></p>"
         prompt_filepath = "prompts/prompt_en.txt"
 
     
@@ -102,7 +101,7 @@ def run_money_manager_analysis():
     else:
         print(greeting + analysis_text)
 
-    print("\n--- Money Manager Analysis Script Finished ---")
+    print("\n--- Budget Planner Analysis Script Finished ---")
 
 if __name__ == "__main__":
     run_money_manager_analysis()
