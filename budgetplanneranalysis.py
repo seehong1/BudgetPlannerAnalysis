@@ -44,6 +44,8 @@ def run_money_manager_analysis():
     summary_last_month_str = excel_utils.get_basic_df_summary(df_last_month)
 
     prompt_filepath = ""
+    info_filepath = "prompts/info.txt"
+    info_content = ""
 
     if config.LANGUAGE == "Korean" or config.LANGUAGE == "한국어":
         greeting = "<p>안녕하세요 홍선님, <br><br>이번 달 가계부 정리 내용을 토대로 분석한 결과입니다.<br></p>" 
@@ -53,16 +55,23 @@ def run_money_manager_analysis():
         prompt_filepath = "prompts/prompt_en.txt"
 
     
-    # Try to read the content of the selected prompt file
+    # Try to read the content of the selected prompt and info files
     try:
         with open(prompt_filepath, 'r', encoding='utf-8') as file:
             raw_prompt_template = file.read()
     except FileNotFoundError:
         print(f"Error: Prompt file not found at {prompt_filepath}. Please ensure it exists.")
         return # Exit if the prompt file is missing
+    
+    
+    try:
+        with open(info_filepath, 'r', encoding='utf-8') as file:
+            info_content = file.read()
+    except FileNotFoundError:
+        print(f"Warning: Info file not found at {info_filepath}. Proceeding without additional context.")
+        # It's usually fine to continue if the info file is just supplemental
 
-    # Format the loaded prompt template with your dynamic data
-    # This replaces all the placeholders like {this_month_display} with their actual values
+
     full_prompt = raw_prompt_template.format(
         df_this_month=df_this_month,
         this_month_display=this_month_display,
@@ -72,7 +81,9 @@ def run_money_manager_analysis():
         last_month_summary=summary_last_month_str,
     )
 
-    analysis_text = gemini_utils.get_gemini_response(full_prompt, model_name=config.GEMINI_MODEL)
+    combined_raw_prompt = f"{info_content}\n\n---\n\n{full_prompt}"
+
+    analysis_text = gemini_utils.get_gemini_response(combined_raw_prompt, model_name=config.GEMINI_MODEL)
     
     if analysis_text == "Error: Could not get analysis from Gemini.":
         print("Failed to get analysis from Gemini. Please check API key, network, or usage limits.")
@@ -84,7 +95,7 @@ def run_money_manager_analysis():
         email_subject = f'{this_month_display} Budget Analysis Report'
 
         # Convert Markdown analysis_text to HTML
-        analysis_html_body = markdown.markdown(analysis_text) 
+        analysis_html_body = markdown.markdown(analysis_text, extensions=['markdown.extensions.tables']) 
 
         # Concatenate the HTML greeting with the HTML analysis body
         email_body_final = greeting + analysis_html_body
