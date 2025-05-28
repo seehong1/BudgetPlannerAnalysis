@@ -6,24 +6,20 @@ This Month's Summary: {current_month_summary}
 Last Month's budget planner Data: {df_last_month}
 Last Month's Summary: {last_month_summary}
 
-### Part 1: {this_month_display} Analysis
+Part 1: {this_month_display} Analysis
+Based on the {this_month_display} budget planner Summary provided:
 
-Based on the **{this_month_display} budget planner Summary** provided:
--   Summarize the overall spending pattern and major income sources for this month.
--   Identify and list the top 3-5 highest expense categories (e.g., Groceries, Restaurants, Utilities) along with their approximate amounts.
--   Note any unusually large or one-time transactions.
--   Calculate and state the net income/loss (Income - Expenses) for this month.
--   Provide 2-3 key insights or observations specific to this month's financial activity.
+Summarize the overall spending pattern and major income sources for this month.
+Identify and list the top 3-5 highest expense categories (e.g., Groceries, Restaurants, Utilities) along with their approximate amounts.
+Note any unusually large or one-time transactions.
+Calculate and state the total amount saved for your individual accounts (Roth IRA, HYSA only) for this month.
+Calculate and state your Final Net Balance for this month. This Final Net Balance should be calculated by subtracting both your Total Expenses and your Total Savings (including both individual savings and retirement account savings) from your Total Income. That is, Final Net Balance = Total Income - (Total Expenses + Total Savings from individual accounts + Total Savings from retirement accounts). Emphasize that this figure represents the final unallocated balance after all income has been spent or saved, and ideally, it should be close to zero.
+Provide 2-3 key insights or observations specific to this month's financial activity.
+Part 2: Month-over-Month Comparison ({this_month_display} vs. {last_month_display})
+Compare the {this_month_display} data with the {last_month_display} data, focusing on:
 
----
-
-### Part 2: Month-over-Month Comparison ({this_month_display} vs. {last_month_display})
-
-Compare the **{this_month_display}** data with the **{last_month_display}** data, focusing on:
--   **Overall Trends:** How has the general spending behavior changed or remained consistent?
--   **Income/Expense Shifts:** Highlight significant changes in total income and total expenses between the two months.
--   **Category Changes:** Identify which expense categories saw the biggest increases or decreases, and note any new or completely absent categories.
--   **Savings Performance:** Based on net income/loss for each month, comment on savings performance (if applicable and discernible from the summaries).
--   **Actionable Recommendations:** Provide practical suggestions for financial improvement for {this_month_display} based on the comparison, or other interesting insights for future financial planning.
-
-Please present the analysis clearly, with distinct sections for Part 1 and Part 2, and use headings and bullet points.
+Overall Trends: How has the general spending behavior changed or remained consistent?
+Income/Expense Shifts: Highlight significant changes in total income and total expenses between the two months.
+Category Changes: Identify which expense categories saw the biggest increases or decreases, and note any new or completely absent categories.
+Savings Performance: Based on your Final Net Balance for each month, comment on savings performance (if applicable and discernible from the summaries).
+Actionable Recommendations: Provide practical suggestions for financial improvement for {this_month_display} based on the comparison, or other interesting insights for future financial planning.
