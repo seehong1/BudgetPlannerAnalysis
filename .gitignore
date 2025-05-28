@@ -1,4 +1,4 @@
 config.py
 2025/
 .env
-example/*
+examples/
