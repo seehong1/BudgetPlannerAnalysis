@@ -1,5 +1,0 @@
-SENDER_EMAIL = "sehong098@gmail.com"
-RECEIVER_EMAIL = "sehong098@gmail.com"
-GEMINI_MODEL = "gemini-2.0-flash"
-LANGUAGE = "한국어"
-EMAIL_SEND = "False"
