@@ -42,6 +42,7 @@ def run_money_manager_analysis():
     # Get basic summaries for the LLM (preprocessing happens inside get_basic_df_summary)
     summary_this_month_str = excel_utils.get_basic_df_summary(df_this_month)
     summary_last_month_str = excel_utils.get_basic_df_summary(df_last_month)
+    summary = excel_utils.get_month_comparison_analysis(df_this_month, df_last_month, this_month_display, last_month_display)
 
     prompt_filepath = ""
     info_filepath = "prompts/info.txt"
@@ -79,6 +80,7 @@ def run_money_manager_analysis():
         df_last_month=df_last_month,
         last_month_display=last_month_display,
         last_month_summary=summary_last_month_str,
+        summary = summary
     )
 
     combined_raw_prompt = f"{info_content}\n\n---\n\n{full_prompt}"
